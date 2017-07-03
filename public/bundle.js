@@ -111,9 +111,9 @@
 	    };
 	    helpers.getArticles().then(function (savedArticles) {
 	      var newState = this.state;
-	      newState.saved = savedArticles;
+	      newState.saved = savedArticles.data;
 	      this.setState(newState);
-	    });
+	    }.bind(_this));
 	    return _this;
 	  }
 
@@ -144,8 +144,10 @@
 
 	  }, {
 	    key: 'onSaveArticle',
-	    value: function onSaveArticle(article) {
-	      console.log('onSaving');
+	    value: function onSaveArticle(articleIndex) {
+	      console.log('onSaving: ' + articleIndex);
+	      console.log('article: ' + JSON.stringify(this.state.found[articleIndex]));
+	      helpers.postArticle(this.state.found[articleIndex]).then(function () {});
 	    }
 	  }, {
 	    key: 'render',
@@ -159,6 +161,9 @@
 	      var onSearchTermChange = function onSearchTermChange(term) {
 	        _this2.onSearchTermChange(term);
 	      };
+	      var onSelectArticle = function onSelectArticle(articleIndex) {
+	        _this2.onSaveArticle(articleIndex);
+	      };
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -166,8 +171,11 @@
 	          onSearchClick: nytSearch,
 	          onSearchTermChange: onSearchTermChange
 	        }),
-	        _react2.default.createElement(_Found2.default, { foundArticles: this.state.found }),
-	        _react2.default.createElement(_Saved2.default, null)
+	        _react2.default.createElement(_Found2.default, { foundArticles: this.state.found,
+	          onSelectArticle: onSelectArticle
+
+	        }),
+	        _react2.default.createElement(_Saved2.default, { savedArticles: this.state.saved })
 	      );
 	    }
 	  }]);
@@ -38465,8 +38473,18 @@
 	  }
 
 	  _createClass(Found, [{
+	    key: 'onSelectArticle',
+	    value: function onSelectArticle(event) {
+	      event.preventDefault();
+	      var articleId = event.target.getAttribute('data-key');
+	      this.props.onSelectArticle(articleId);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      //this is the index of the articles.  It will always go from 0 to lenght of found articles - 1.
+	      var i = 0;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container' },
@@ -38491,30 +38509,31 @@
 	              _react2.default.createElement(
 	                'div',
 	                { className: 'panel-body', onClick: this.clickHandler },
-	                this.props.foundArticles.map(function (article, i) {
+	                this.props.foundArticles.map(function (article) {
+	                  var _this2 = this;
 
 	                  return _react2.default.createElement(
 	                    'p',
-	                    { key: i },
+	                    { key: i++ },
 	                    _react2.default.createElement(
 	                      'a',
-	                      { href: '', className: 'btn btn-primary' },
+	                      { 'data-key': i++, href: '', className: 'btn btn-primary', onClick: function onClick(event) {
+	                          return _this2.onSelectArticle(event);
+	                        } },
 	                      'Save'
 	                    ),
-	                    ' ',
 	                    _react2.default.createElement(
 	                      'a',
 	                      { href: article.url },
 	                      article.title
 	                    ),
-	                    ' ',
 	                    _react2.default.createElement(
 	                      'span',
 	                      null,
 	                      article.pub_date
 	                    )
 	                  );
-	                })
+	                }.bind(this))
 	              )
 	            )
 	          )

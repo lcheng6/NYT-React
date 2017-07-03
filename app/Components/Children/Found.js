@@ -8,7 +8,17 @@ class Found extends Component {
     //don't need to use states
   }
 
+  onSelectArticle(event) {
+    event.preventDefault();
+    var articleId = event.target.getAttribute('data-key');
+    this.props.onSelectArticle(articleId);
+
+  }
+
   render() {
+    //this is the index of the articles.  It will always go from 0 to lenght of found articles - 1.
+    var i = 0;
+
     return (
 
       <div className="container">
@@ -21,11 +31,14 @@ class Found extends Component {
               <div className="panel-body" onClick={this.clickHandler}>
 
                 {/* loop through the articles returned and display to screen with a save button */}
-                {this.props.foundArticles.map(function(article, i) {
+                {this.props.foundArticles.map(function(article) {
 
-                  return <p key={i}><a href="" className="btn btn-primary">Save</a> <a href={article.url}>{article.title}</a> <span>{article.pub_date}</span></p>
+                  return <p key={i++}>
+                    <a data-key={i++} href="" className="btn btn-primary" onClick={event => this.onSelectArticle(event)}>Save</a>
+                    <a href={article.url}>{article.title}</a>
+                    <span>{article.pub_date}</span></p>
 
-                })}
+                }.bind(this))}
 
               </div>
             </div>

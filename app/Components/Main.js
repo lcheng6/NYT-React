@@ -28,9 +28,9 @@ class Main extends Component {
     helpers.getArticles()
       .then(function(savedArticles) {
         var newState = this.state;
-        newState.saved = savedArticles;
+        newState.saved = savedArticles.data;
         this.setState(newState);
-      })
+      }.bind(this))
   }
 
   //nytSearch to search the NYT database for the article.
@@ -54,8 +54,13 @@ class Main extends Component {
 
   //This function will be triggered by the Found Child component
   //The onSavedArticle function will call ajax to save a function, and to reload the Saved section.
-  onSaveArticle(article) {
-    console.log('onSaving')
+  onSaveArticle(articleIndex) {
+    console.log('onSaving: ' + articleIndex);
+    console.log('article: ' + JSON.stringify(this.state.found[articleIndex]));
+    helpers.postArticle(this.state.found[articleIndex])
+      .then(function() {
+
+      })
   }
 
 
@@ -63,14 +68,18 @@ class Main extends Component {
     // const nytSearch = _.debounce( (term) => {this.nytSearch(term)}, 300);
     const nytSearch =  (term) => {this.nytSearch(term)};
     const onSearchTermChange = (term) => { this.onSearchTermChange(term)};
+    const onSelectArticle = (articleIndex) => { this.onSaveArticle(articleIndex) };
     return (
       <div>
         <Search searchTerms = {this.state.search}
                 onSearchClick={ nytSearch }
                 onSearchTermChange = { onSearchTermChange }
         />
-        <Found foundArticles= {this.state.found}/>
-        <Saved />
+        <Found foundArticles= {this.state.found}
+               onSelectArticle={ onSelectArticle }
+
+        />
+        <Saved savedArticles = {this.state.saved}/>
       </div>
     );
   }
