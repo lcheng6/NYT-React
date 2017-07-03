@@ -4,14 +4,16 @@
   "description": "ny times article search with ability to save to mongo db. Learing React",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "test:watch": "npm run test -- --watch"
   },
-  "author": "Kostiantyn Kobylinskyi",
+  "author": "Liang Cheng",
   "license": "",
   "bugs": {
     "url": ""
   },
+  "repository": "https://github.com/lcheng6/NYT-React",
   "homepage": "",
   "dependencies": {
     "axios": "^0.12.0",
@@ -22,7 +24,15 @@
     "morgan": "^1.7.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
-    "socket.io": "^1.4.8"
+    "socket.io": "^1.4.8",
+    "chai": "^3.5.0",
+    "chai-jquery": "^2.0.0",
+    "jquery": "^2.2.1",
+    "jsdom": "^8.1.0",
+    "mocha": "^2.4.5",
+    "react-addons-test-utils": "^0.14.7",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
   },
   "devDependencies": {
     "babel-core": "^6.3.13",
