@@ -4,13 +4,12 @@ class Saved extends Component {
   constructor (props) {
     super(props);
 
-    this.state = {SavedArticles:[] };
+    this.state = {saved:[] };
   }
 
   render() {
     return (
       <div className="container">
-        Saved
         <div className="row">
           <div className="col-md-12">
             <div className="panel panel-default">
