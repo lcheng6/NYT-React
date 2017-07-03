@@ -46,7 +46,7 @@ class Main extends Component {
       <div>
         <Search searchTerms = {this.state.search}
                 onSearchClick={ nytSearch } />
-        <Found />
+        <Found foundArticles= {this.state.found}/>
         <Saved />
       </div>
     );

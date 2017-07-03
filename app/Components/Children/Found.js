@@ -6,19 +6,19 @@ class Found extends Component {
   constructor (props) {
     super(props);
 
-    this.state = {
-      found:[
-        {
-        url: "test",
-        title: "test",
-        pub_date: "10/20/96"
-        },
-        {
-          url: "test",
-          title: "test",
-          pub_date: "10/20/96"
-        }
-      ] };
+    // this.state = {
+    //   found:[
+    //     {
+    //     url: "test",
+    //     title: "test",
+    //     pub_date: "10/20/96"
+    //     },
+    //     {
+    //       url: "test",
+    //       title: "test",
+    //       pub_date: "10/20/96"
+    //     }
+    //   ] };
   }
 
   render() {
@@ -34,7 +34,7 @@ class Found extends Component {
               <div className="panel-body" onClick={this.clickHandler}>
 
                 {/* loop through the articles returned and display to screen with a save button */}
-                {this.state.found.map(function(article, i) {
+                {this.props.foundArticles.map(function(article, i) {
 
                   return <p key={i}><a href="" className="btn btn-primary">Save</a> <a href={article.url}>{article.title}</a> <span>{article.pub_date}</span></p>
 
