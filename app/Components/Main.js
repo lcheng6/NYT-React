@@ -6,7 +6,7 @@ import Search from './Children/Search';
 import Found from './Children/Found';
 import Saved from './Children/Saved';
 
-var helpers = require('./utils/helpers');
+const helpers = require('./utils/helpers');
 
 class Main extends Component {
 
@@ -49,7 +49,7 @@ class Main extends Component {
   onSearchTermChange(searchTerm) {
     console.log('onSearchTermChange');
     console.log(searchTerm);
-    var newState = this.state;
+    let newState = this.state;
     newState.search = searchTerm;
     console.log('newState: ' + newState);
     this.setState(newState);
@@ -64,11 +64,20 @@ class Main extends Component {
       .then(function() {
         helpers.getArticles()
           .then(function(savedArticles) {
-            var newState = this.state;
+            let newState = this.state;
             newState.saved = savedArticles.data;
             this.setState(newState);
           }.bind(this))
       }.bind(this))
+  }
+
+  //To delete an article.  The articleId is the mongoose ID of the article.
+  onDeleteArticle(articleId) {
+    console.log('onDelete: ' + articleId);
+    helpers.deleteArticle(articleId)
+      .then(function() {
+
+      }.bind(this));
   }
 
 
@@ -77,6 +86,7 @@ class Main extends Component {
     const nytSearch =  (term) => {this.nytSearch(term)};
     const onSearchTermChange = (term) => { this.onSearchTermChange(term)};
     const onSelectArticle = (articleIndex) => { this.onSaveArticle(articleIndex) };
+    const onDeleteArticle = (articleId) => { this.onDeleteArticle(articleId) };
     return (
       <div>
         <Search searchTerms = {this.state.search}
@@ -88,9 +98,10 @@ class Main extends Component {
 
         />
         <Saved savedArticles = {this.state.saved}
+               onDeleteArticle = { onDeleteArticle }
         />
       </div>
-    );
+    )
   }
 
 }

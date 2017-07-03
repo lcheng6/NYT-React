@@ -158,6 +158,15 @@
 	        }.bind(this));
 	      }.bind(this));
 	    }
+
+	    //To delete an article.  The articleId is the mongoose ID of the article.
+
+	  }, {
+	    key: 'onDeleteArticle',
+	    value: function onDeleteArticle(articleId) {
+	      console.log('onDelete: ' + articleId);
+	      helpers.deleteArticle(articleId).then(function () {}.bind(this));
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -173,6 +182,9 @@
 	      var onSelectArticle = function onSelectArticle(articleIndex) {
 	        _this2.onSaveArticle(articleIndex);
 	      };
+	      var onDeleteArticle = function onDeleteArticle(articleId) {
+	        _this2.onDeleteArticle(articleId);
+	      };
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -184,7 +196,8 @@
 	          onSelectArticle: onSelectArticle
 
 	        }),
-	        _react2.default.createElement(_Saved2.default, { savedArticles: this.state.saved
+	        _react2.default.createElement(_Saved2.default, { savedArticles: this.state.saved,
+	          onDeleteArticle: onDeleteArticle
 	        })
 	      );
 	    }
@@ -37221,7 +37234,8 @@
 	    deleteArticle: function deleteArticle(article_id) {
 
 	        // use axios to access the api/delete route. Needed to make this one different from the others as I couldn't get .delete to work so needed to use .post to remove from mongodb
-	        return axios.post('/api/delete/', article_id).then(function (response) {
+	        var url = '/api/delete/' + article_id;
+	        return axios.post(url).then(function (response) {
 
 	            return response;
 	        }); // end axios.post()
@@ -38600,6 +38614,7 @@
 	      event.preventDefault();
 	      var articleId = event.target.id;
 	      console.log("To Delete Article Id: " + articleId);
+	      this.props.onDeleteArticle(articleId);
 	    }
 	  }, {
 	    key: 'render',

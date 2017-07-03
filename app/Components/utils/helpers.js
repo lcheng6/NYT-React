@@ -70,7 +70,8 @@ var helpers = {
     deleteArticle: function(article_id) {
 
         // use axios to access the api/delete route. Needed to make this one different from the others as I couldn't get .delete to work so needed to use .post to remove from mongodb
-        return axios.post('/api/delete/', article_id)
+        var url = '/api/delete/'+article_id;
+        return axios.post(url)
             .then(function(response) {
 
                 return response;

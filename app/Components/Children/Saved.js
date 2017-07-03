@@ -11,6 +11,7 @@ class Saved extends Component {
     event.preventDefault();
     var articleId = event.target.id;
     console.log("To Delete Article Id: " + articleId);
+    this.props.onDeleteArticle(articleId);
 
   }
 

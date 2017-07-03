@@ -120,19 +120,21 @@ app.post('/api/', function(req, res) {
 }); // end app.post()
 
 // delete data from the db. Wanted to use app.delete but couldn't. Not sure why.
-app.post('/api/delete/', function(req, res) {
+app.post('/api/delete/:id', function(req, res) {
 
 	// save the article object which has the article id to the variable
-	var article = req.body;
+	var articleId = req.params.id;
 
-	console.log(article);
+	console.log(articleId);
 
 	// had to use .remove() instead of .deleteOne() but not sure why.
-	db.articles.remove({"_id": (mongojs.ObjectId(article.article_id))}, function(err, docs) {
+	db.articles.remove({"_id": (mongojs.ObjectId(articleId)) }, function(err, docs) {
 		
-		if (err) throw err;
-
-		console.log('article deleted');
+		if (err) {
+		  throw err;
+    }else {
+      console.log('article deleted');
+    }
 
 		res.send(docs);
 
