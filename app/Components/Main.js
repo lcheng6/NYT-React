@@ -14,26 +14,38 @@ class Main extends Component {
     super(props);
 
     this.state = {
+      //Found articles
+      search: {
+        search_topic: "Surfboard",
+        start_year: "2000",
+        end_year: "2001"
+      },
+      //Found articles
       found: [],
+      //Saved articles
       saved: [],
     };
 
   }
 
   //nytSearch to search the NYT database for the article.
-  nytSearch(searchCriteria) {
-    helpers.searchNYT("Surf", "2000", "2001")
+  nytSearch(searchTerm) {
+    helpers.searchNYT(searchTerm.search_topic, searchTerm.start_year, searchTerm.end_year)
       .then(function(data) {
         console.log(data);
-        this.setState({"found":data});
-      }.bind(this))
+        this.setState({"found": data});
+
+      }.bind(this)
+      );
   }
 
   render() {
-
+    // const nytSearch = _.debounce( (term) => {this.nytSearch(term)}, 300);
+    const nytSearch =  (term) => {this.nytSearch(term)};
     return (
       <div>
-        <Search onSearchClick={this.nytSearch} />
+        <Search searchTerms = {this.state.search}
+                onSearchClick={ nytSearch } />
         <Found />
         <Saved />
       </div>
