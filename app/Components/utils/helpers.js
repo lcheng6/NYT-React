@@ -79,6 +79,6 @@ var helpers = {
 
     } // end deleteArticle()
 
-} // end helpers
+}; // end helpers
 
 module.exports = helpers;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import helpers from '../utils/helpers';
+var helpers = require('../utils/helpers');
 
 class Search extends Component {
   constructor (props) {
@@ -23,7 +23,11 @@ class Search extends Component {
 
   searchNYT(event) {
     event.preventDefault();
-    console.log("Search NYT Now")
+    console.log("Search NYT Now");
+    let search_topic = document.getElementById('search_topic').value;
+    let start_year = document.getElementsByName('start_year').value;
+    let end_year = document.getElementsByName('end_year').value;
+    this.props.onSearchClick({search_topic, start_year, end_year});
 
   }
 
