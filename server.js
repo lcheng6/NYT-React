@@ -45,7 +45,7 @@ app.use(express.static('./public'));
 // -------------------------------------------------
 
 // Database
-var databaseUrl = 'mongodb://heroku_1pgm1ldm:tr2sm9fp0lr5prg2lbgl8ic6cr@ds139242.mlab.com:39242/heroku_1pgm1ldm'; //nytreact
+var databaseUrl = 'mongodb://heroku_skm53j88:1lhde9iqnu0dcsodk1dircp99b@ds145952.mlab.com:45952/heroku_skm53j88'; //nytreact
 // var databaseUrl = 'mongodb://localhost/nytimes';
 var collections = ["articles"];
 
