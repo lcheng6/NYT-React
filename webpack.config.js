@@ -1,37 +1,39 @@
-const path = require('path')
-const webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  devtool: 'eval',
 
+  // This code will be compiled 
   entry: [
-    'webpack-hot-middleware/client',
-    './app/Components/Main.js'
+    "./app/Components/Main.js"
   ],
 
+  // Then output into this file
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js',
-    publicPath: '/public/'
+    filename: "public/bundle.js"
   },
 
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
-
+  // This will be what we do
   module: {
     loaders: [
-      { test: /\.js?$/,
+      {
+        exclude: /node_modules/,
         loader: 'babel',
-        exclude: path.join(__dirname, 'node_modules') },
-      { test: /\.scss?$/,
-        loader: 'style!css!sass',
-        include: path.join(__dirname, 'src', 'styles') },
-      { test: /\.png$/,
-        loader: 'file' },
-      { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        loader: 'file'}
-    ]
+        query: {
+          presets: ['react', 'es2015', 'stage-1']
+        }
+      }]
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './'
   }
+  // plugins: [
+  //   new ExtractTextPlugin('public/style.css', {
+  //     allChunks: true
+  //   })
+  // ]
+
 };
