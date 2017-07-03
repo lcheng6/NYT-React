@@ -1,7 +1,8 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
-  devtool: 'source-map'
+  devtool: 'source-map',
   // This code will be compiled 
   entry: [
     "./app/Components/Main.js"
