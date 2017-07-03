@@ -4,7 +4,20 @@ class Saved extends Component {
   constructor (props) {
     super(props);
 
-    this.state = {saved:[] };
+    this.state = {saved:[
+      {
+        _id: "mockdata",
+        url: "test",
+        title: "test",
+        pub_date: "10/20/96"
+      },
+      {
+        _id: "mockdata",
+        url: "test",
+        title: "test",
+        pub_date: "10/20/96"
+      }
+    ] };
   }
 
   render() {
@@ -18,9 +31,9 @@ class Saved extends Component {
               </div>
               <div className="panel-body" onClick={this.clickHandler}>
                 {/* using map to loop through the array being returned from the db with the articles it holds */}
-                {/*{this.props.articles.map(function(search, i) {*/}
-                  {/*return <p key={i}><a href="" className="btn btn-danger" id={search._id} >Delete</a> <a href={search.article_url}>{search.article_title}</a> <span>{search.article_pub_date}</span></p>*/}
-                {/*})}*/}
+                {this.state.saved.map(function(search, i) {
+                  return <p key={i}><a href="" className="btn btn-danger" id={search._id} >Delete</a> <a href={search.url}>{search.title}</a> <span>{search.pub_date}</span></p>
+                })}
               </div>
             </div>
           </div>
