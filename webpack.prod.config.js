@@ -1,5 +1,5 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
@@ -15,13 +15,13 @@ module.exports = {
     publicPath: '/public/'
   },
   plugins: [
-    // new webpack.optimize.DedupePlugin(),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   minimize: true,
-    //   compress: {
-    //     warnings: false
-    //   }
-    // }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      compress: {
+        warnings: false
+      }
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
@@ -43,13 +43,13 @@ module.exports = {
         loader: 'file'}
     ]
   },
-  resolve: {
-      extensions: ['', '.js', '.jsx']
-  },
-  devServer: {
-      historyApiFallback: true,
-      contentBase: './'
-  }
+  // resolve: {
+  //     extensions: ['', '.js', '.jsx']
+  // },
+  // devServer: {
+  //     historyApiFallback: true,
+  //     contentBase: './'
+  // }
   // plugins: [
   //   new ExtractTextPlugin('public/style.css', {
   //     allChunks: true
