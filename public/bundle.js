@@ -165,7 +165,13 @@
 	    key: 'onDeleteArticle',
 	    value: function onDeleteArticle(articleId) {
 	      console.log('onDelete: ' + articleId);
-	      helpers.deleteArticle(articleId).then(function () {}.bind(this));
+	      helpers.deleteArticle(articleId).then(function () {
+	        helpers.getArticles().then(function (savedArticles) {
+	          var newState = this.state;
+	          newState.saved = savedArticles.data;
+	          this.setState(newState);
+	        }.bind(this));
+	      }.bind(this));
 	    }
 	  }, {
 	    key: 'render',

@@ -76,7 +76,12 @@ class Main extends Component {
     console.log('onDelete: ' + articleId);
     helpers.deleteArticle(articleId)
       .then(function() {
-
+        helpers.getArticles()
+          .then(function(savedArticles) {
+            let newState = this.state;
+            newState.saved = savedArticles.data;
+            this.setState(newState);
+          }.bind(this))
       }.bind(this));
   }
 
