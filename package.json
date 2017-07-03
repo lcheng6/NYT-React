@@ -7,7 +7,8 @@
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "start": "node server.js",
     "test:watch": "npm run test -- --watch",
-    "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors"
+    "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
+    "postinstall": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "author": "Liang Cheng",
   "license": "",
