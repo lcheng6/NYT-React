@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "node server.js",
     "test:watch": "npm run test -- --watch"
   },
   "author": "Liang Cheng",
@@ -15,25 +15,6 @@
   },
   "repository": "https://github.com/lcheng6/NYT-React",
   "homepage": "",
-  "dependencies": {
-    "axios": "^0.12.0",
-    "body-parser": "^1.15.2",
-    "core-js": "^2.4.0",
-    "express": "^4.14.0",
-    "mongojs": "^2.4.0",
-    "morgan": "^1.7.0",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3",
-    "socket.io": "^1.4.8",
-    "chai": "^3.5.0",
-    "chai-jquery": "^2.0.0",
-    "jquery": "^2.2.1",
-    "jsdom": "^8.1.0",
-    "mocha": "^2.4.5",
-    "react-addons-test-utils": "^0.14.7",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
-  },
   "devDependencies": {
     "babel-core": "^6.3.13",
     "babel-loader": "^6.2.0",
@@ -44,6 +25,29 @@
     "node-sass": "^3.8.0",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.0",
+    "chai": "^3.5.0",
+    "chai-jquery": "^2.0.0",
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "axios": "^0.12.0",
+    "lodash": "^3.10.1",
+    "babel-preset-stage-1": "^6.3.13",
+    "body-parser": "^1.15.2",
+    "core-js": "^2.4.0",
+    "express": "^4.14.0",
+    "mongojs": "^2.4.0",
+    "morgan": "^1.7.0",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-redux": "4.3.0",
+    "react-router": "^2.0.1",
+    "redux": "^3.0.4",
+    "socket.io": "^1.4.8",
+    "jquery": "^2.2.1",
+    "jsdom": "^8.1.0",
+    "react-addons-test-utils": "^0.14.7"
   }
 }

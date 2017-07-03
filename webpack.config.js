@@ -3,7 +3,9 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   
   // This code will be compiled 
-  entry: "./app/App.js",
+  entry: [
+    "./app/Components/Main.js"
+    ],
 
   // Then output into this file
   output: {
@@ -13,21 +15,20 @@ module.exports = {
   // This will be what we do
   module: {
     loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        {
+        exclude: /node_modules/,
         loader: 'babel',
         query: {
-          // These are the specific transformations we'll be using. 
-          presets: ['react', 'es2015']
+            presets: ['react', 'es2015']
         }
-      },
-      {
-        test: /\.scss$/,
-        loader: "style!css!sass"
-        // loader: ExtractTextPlugin.extract('css!sass')  
-      }
-    ]
+    }]
+  },
+  resolve: {
+      extensions: ['', '.js', '.jsx']
+  },
+  devServer: {
+      historyApiFallback: true,
+      contentBase: './'
   }
   // plugins: [
   //   new ExtractTextPlugin('public/style.css', {
@@ -35,4 +36,4 @@ module.exports = {
   //   })
   // ]
 
-}
+};
