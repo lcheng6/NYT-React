@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 class Saved extends Component {
   constructor (props) {
     super(props);
 
-    this.state = {saved:[
-      {
-        _id: "mockdata",
-        url: "test",
-        title: "test",
-        pub_date: "10/20/96"
-      },
-      {
-        _id: "mockdata",
-        url: "test",
-        title: "test",
-        pub_date: "10/20/96"
-      }
-    ] };
+  }
+  onDeleteArticle(event) {
+    //articleId is the Mongoose Id
+    event.preventDefault();
+    var articleId = event.target.id;
+    console.log("To Delete Article Id: " + articleId);
+
   }
 
   render() {
+    var i = 0;
     return (
       <div className="container">
         <div className="row">
@@ -29,11 +24,16 @@ class Saved extends Component {
               <div className="panel-heading">
                 <h2>Saved Articles</h2>
               </div>
-              <div className="panel-body" onClick={this.clickHandler}>
+              <div className="panel-body">
                 {/* using map to loop through the array being returned from the db with the articles it holds */}
-                {this.state.saved.map(function(search, i) {
-                  return <p key={i}><a href="" className="btn btn-danger" id={search._id} >Delete</a> <a href={search.url}>{search.title}</a> <span>{search.pub_date}</span></p>
-                })}
+                {this.props.savedArticles.map(function(savedArticle, i) {
+                  return <p key={i} >
+                    <a href="" className="btn btn-danger" id={savedArticle._id}
+                       onClick={event => this.onDeleteArticle(event) }>Delete</a>
+                    <a href={savedArticle.url}>{savedArticle.title} </a>
+                    <span>{savedArticle.pub_date}</span>
+                  </p>
+                }.bind(this))}
               </div>
             </div>
           </div>

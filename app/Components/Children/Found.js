@@ -17,7 +17,6 @@ class Found extends Component {
 
   render() {
     //this is the index of the articles.  It will always go from 0 to lenght of found articles - 1.
-    var i = 0;
 
     return (
 
@@ -31,10 +30,10 @@ class Found extends Component {
               <div className="panel-body" onClick={this.clickHandler}>
 
                 {/* loop through the articles returned and display to screen with a save button */}
-                {this.props.foundArticles.map(function(article) {
+                {this.props.foundArticles.map(function(article, i) {
 
-                  return <p key={i++}>
-                    <a data-key={i++} href="" className="btn btn-primary" onClick={event => this.onSelectArticle(event)}>Save</a>
+                  return <p key={i}>
+                    <a data-key={i} href="" className="btn btn-primary" onClick={event => this.onSelectArticle(event)}>Save</a>
                     <a href={article.url}>{article.title}</a>
                     <span>{article.pub_date}</span></p>
 

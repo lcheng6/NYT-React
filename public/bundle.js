@@ -128,6 +128,9 @@
 	        this.setState({ "found": data });
 	      }.bind(this));
 	    }
+
+	    //Update the search term state in the main object.
+
 	  }, {
 	    key: 'onSearchTermChange',
 	    value: function onSearchTermChange(searchTerm) {
@@ -147,7 +150,13 @@
 	    value: function onSaveArticle(articleIndex) {
 	      console.log('onSaving: ' + articleIndex);
 	      console.log('article: ' + JSON.stringify(this.state.found[articleIndex]));
-	      helpers.postArticle(this.state.found[articleIndex]).then(function () {});
+	      helpers.postArticle(this.state.found[articleIndex]).then(function () {
+	        helpers.getArticles().then(function (savedArticles) {
+	          var newState = this.state;
+	          newState.saved = savedArticles.data;
+	          this.setState(newState);
+	        }.bind(this));
+	      }.bind(this));
 	    }
 	  }, {
 	    key: 'render',
@@ -175,7 +184,8 @@
 	          onSelectArticle: onSelectArticle
 
 	        }),
-	        _react2.default.createElement(_Saved2.default, { savedArticles: this.state.saved })
+	        _react2.default.createElement(_Saved2.default, { savedArticles: this.state.saved
+	        })
 	      );
 	    }
 	  }]);
@@ -38483,7 +38493,6 @@
 	    key: 'render',
 	    value: function render() {
 	      //this is the index of the articles.  It will always go from 0 to lenght of found articles - 1.
-	      var i = 0;
 
 	      return _react2.default.createElement(
 	        'div',
@@ -38509,15 +38518,15 @@
 	              _react2.default.createElement(
 	                'div',
 	                { className: 'panel-body', onClick: this.clickHandler },
-	                this.props.foundArticles.map(function (article) {
+	                this.props.foundArticles.map(function (article, i) {
 	                  var _this2 = this;
 
 	                  return _react2.default.createElement(
 	                    'p',
-	                    { key: i++ },
+	                    { key: i },
 	                    _react2.default.createElement(
 	                      'a',
-	                      { 'data-key': i++, href: '', className: 'btn btn-primary', onClick: function onClick(event) {
+	                      { 'data-key': i, href: '', className: 'btn btn-primary', onClick: function onClick(event) {
 	                          return _this2.onSelectArticle(event);
 	                        } },
 	                      'Save'
@@ -38551,7 +38560,7 @@
 /* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -38562,6 +38571,10 @@
 	var _react = __webpack_require__(4);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(161);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38577,72 +38590,72 @@
 	  function Saved(props) {
 	    _classCallCheck(this, Saved);
 
-	    var _this = _possibleConstructorReturn(this, (Saved.__proto__ || Object.getPrototypeOf(Saved)).call(this, props));
-
-	    _this.state = { saved: [{
-	        _id: "mockdata",
-	        url: "test",
-	        title: "test",
-	        pub_date: "10/20/96"
-	      }, {
-	        _id: "mockdata",
-	        url: "test",
-	        title: "test",
-	        pub_date: "10/20/96"
-	      }] };
-	    return _this;
+	    return _possibleConstructorReturn(this, (Saved.__proto__ || Object.getPrototypeOf(Saved)).call(this, props));
 	  }
 
 	  _createClass(Saved, [{
-	    key: "render",
+	    key: 'onDeleteArticle',
+	    value: function onDeleteArticle(event) {
+	      //articleId is the Mongoose Id
+	      event.preventDefault();
+	      var articleId = event.target.id;
+	      console.log("To Delete Article Id: " + articleId);
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
+	      var i = 0;
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "container" },
+	        'div',
+	        { className: 'container' },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "row" },
+	          'div',
+	          { className: 'row' },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "col-md-12" },
+	            'div',
+	            { className: 'col-md-12' },
 	            _react2.default.createElement(
-	              "div",
-	              { className: "panel panel-default" },
+	              'div',
+	              { className: 'panel panel-default' },
 	              _react2.default.createElement(
-	                "div",
-	                { className: "panel-heading" },
+	                'div',
+	                { className: 'panel-heading' },
 	                _react2.default.createElement(
-	                  "h2",
+	                  'h2',
 	                  null,
-	                  "Saved Articles"
+	                  'Saved Articles'
 	                )
 	              ),
 	              _react2.default.createElement(
-	                "div",
-	                { className: "panel-body", onClick: this.clickHandler },
-	                this.state.saved.map(function (search, i) {
+	                'div',
+	                { className: 'panel-body' },
+	                this.props.savedArticles.map(function (savedArticle, i) {
+	                  var _this2 = this;
+
 	                  return _react2.default.createElement(
-	                    "p",
+	                    'p',
 	                    { key: i },
 	                    _react2.default.createElement(
-	                      "a",
-	                      { href: "", className: "btn btn-danger", id: search._id },
-	                      "Delete"
+	                      'a',
+	                      { href: '', className: 'btn btn-danger', id: savedArticle._id,
+	                        onClick: function onClick(event) {
+	                          return _this2.onDeleteArticle(event);
+	                        } },
+	                      'Delete'
 	                    ),
-	                    " ",
 	                    _react2.default.createElement(
-	                      "a",
-	                      { href: search.url },
-	                      search.title
+	                      'a',
+	                      { href: savedArticle.url },
+	                      savedArticle.title,
+	                      ' '
 	                    ),
-	                    " ",
 	                    _react2.default.createElement(
-	                      "span",
+	                      'span',
 	                      null,
-	                      search.pub_date
+	                      savedArticle.pub_date
 	                    )
 	                  );
-	                })
+	                }.bind(this))
 	              )
 	            )
 	          )

@@ -33,6 +33,7 @@ class Main extends Component {
       }.bind(this))
   }
 
+
   //nytSearch to search the NYT database for the article.
   nytSearch(searchTerm) {
     helpers.searchNYT(searchTerm.search_topic, searchTerm.start_year, searchTerm.end_year)
@@ -43,6 +44,8 @@ class Main extends Component {
       }.bind(this)
       );
   }
+
+  //Update the search term state in the main object.
   onSearchTermChange(searchTerm) {
     console.log('onSearchTermChange');
     console.log(searchTerm);
@@ -59,8 +62,13 @@ class Main extends Component {
     console.log('article: ' + JSON.stringify(this.state.found[articleIndex]));
     helpers.postArticle(this.state.found[articleIndex])
       .then(function() {
-
-      })
+        helpers.getArticles()
+          .then(function(savedArticles) {
+            var newState = this.state;
+            newState.saved = savedArticles.data;
+            this.setState(newState);
+          }.bind(this))
+      }.bind(this))
   }
 
 
@@ -79,7 +87,8 @@ class Main extends Component {
                onSelectArticle={ onSelectArticle }
 
         />
-        <Saved savedArticles = {this.state.saved}/>
+        <Saved savedArticles = {this.state.saved}
+        />
       </div>
     );
   }
