@@ -6,20 +6,18 @@ class Search extends Component {
   constructor (props) {
     super(props);
 
-    this.state = {
-      search_topic: '',
-      start_year: '',
-      end_year: ''
-    };
+
   }
 
   changedSearchCriteria(event) {
     console.log(event.target.id + ": " + event.target.value);
-    let tid = event.target.id;
-    let tval = event.target.value;
 
-    this.setState( {tid : tval });
-    //this.props.onSearchParamChange({ this.getState() });
+    let search_topic = document.getElementById('search_topic').value;
+    let start_year = document.getElementById('start_year').value;
+    let end_year = document.getElementById('end_year').value;
+    this.props.onSearchTermChange({search_topic, start_year, end_year});
+
+    //this.props.onSearchParamChange({ this.state });
   }
 
   searchNYT(event) {

@@ -5,20 +5,7 @@ import ReactDOM from 'react-dom';
 class Found extends Component {
   constructor (props) {
     super(props);
-
-    // this.state = {
-    //   found:[
-    //     {
-    //     url: "test",
-    //     title: "test",
-    //     pub_date: "10/20/96"
-    //     },
-    //     {
-    //       url: "test",
-    //       title: "test",
-    //       pub_date: "10/20/96"
-    //     }
-    //   ] };
+    //don't need to use states
   }
 
   render() {

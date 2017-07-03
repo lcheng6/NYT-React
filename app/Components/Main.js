@@ -38,14 +38,25 @@ class Main extends Component {
       }.bind(this)
       );
   }
+  onSearchTermChange(searchTerm) {
+    console.log('onSearchTermChange');
+    console.log(searchTerm);
+    var newState = this.state;
+    newState.search = searchTerm;
+    console.log('newState: ' + newState)
+    this.setState(newState);
+  }
 
   render() {
     // const nytSearch = _.debounce( (term) => {this.nytSearch(term)}, 300);
     const nytSearch =  (term) => {this.nytSearch(term)};
+    const onSearchTermChange = (term) => { this.onSearchTermChange(term)};
     return (
       <div>
         <Search searchTerms = {this.state.search}
-                onSearchClick={ nytSearch } />
+                onSearchClick={ nytSearch }
+                onSearchTermChange = { onSearchTermChange }
+        />
         <Found foundArticles= {this.state.found}/>
         <Saved />
       </div>
